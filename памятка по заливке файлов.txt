@@ -7,6 +7,8 @@ scp -r /path/from/destination username@hostname:/path/to/destination
 
 -- winscp [Василий Рожков]
 
+-- HUE через Upload
+
 p.s.
 в понимании кластера локальная машина -- это та, на которой запущена командная оболочка
 ее можно посмотреть командой hostname

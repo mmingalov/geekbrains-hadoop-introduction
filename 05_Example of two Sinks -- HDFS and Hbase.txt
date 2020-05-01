@@ -1,0 +1,36 @@
+# Naming the components on the current agent
+Flume5.sources = Exec   
+Flume5.channels = FileChannel 
+Flume5.sinks = HDFSSink HBaseSink
+
+# source exec
+Flume5.sources.Exec.type = exec
+Flume5.sources.Exec.channels = FileChannel 
+Flume5.sources.Exec.command = tailf /tmp/student2_5/flume_exec/flume.txt
+Flume5.sources.Exec.logStdErr = true
+
+# channel
+Flume5.channels.FileChannel.type = file
+Flume5.channels.FileChannel.checkpointDir = /flume/flume5/FileChannel/checkpoint
+Flume5.channels.FileChannel.dataDirs =/flume/flume5/FileChannel/data
+Flume5.channels.FileChannel.capacity = 1000
+Flume5.channels.FileChannel.transactionCapacity = 100
+
+#HDFS Sink
+Flume5.sinks.HDFSSink.type = hdfs
+Flume5.sinks.HDFSSink.channel = FileChannel
+Flume5.sinks.HDFSSink.hdfs.path = /user/student2_5/flume_exec/%y-%m-%d
+Flume5.sinks.HDFSSink.hdfs.filePrefix = hdfs-
+Flume5.sinks.HDFSSink.hdfs.useLocalTimeStamp = true
+Flume5.sinks.HDFSSink.hdfs.rollSize = 10
+Flume5.sinks.HDFSSink.hdfs.rollInterval = 0
+Flume5.sinks.HDFSSink.hdfs.rollCount = 0
+Flume5.sinks.HDFSSink.hdfs.fileType = SequenceFile
+Flume5.sinks.HDFSSink.hdfs.codeC = gzip
+
+#HBase Sink
+Flume5.sinks.HBaseSink.type = hbase
+Flume5.sinks.HBaseSink.channel = FileChannel
+Flume5.sinks.HBaseSink.table = student2_5
+Flume5.sinks.HBaseSink.columnFamily = data
+Flume5.sinks.HBaseSink.serializer = org.apache.flume.sink.hbase.SimpleHbaseEventSerializer

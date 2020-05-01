@@ -1,0 +1,50 @@
+# Naming the components on the current agent
+Student3_10_Agent.sources = Exec   
+Student3_10_Agent.channels = MemChannel 
+Student3_10_Agent.sinks = HDFSSink HiveSink HBaseSink
+
+# source exec
+Student3_10_Agent.sources.Exec.type = exec
+Student3_10_Agent.sources.Exec.channels = MemChannel
+Student3_10_Agent.sources.Exec.command = tailf /var/log/cron
+
+# insert timestamp
+Student3_10_Agent.sources.Exec.interceptors = tsi
+Student3_10_Agent.sources.Exec.interceptors.tsi.type = timestamp
+
+# channel
+Student3_10_Agent.channels.MemChannel.type = memory
+Student3_10_Agent.channels.MemChannel.capacity = 1000
+Student3_10_Agent.channels.MemChannel.transactionCapacity = 100
+
+# sinks
+# HDFS
+Student3_10_Agent.sinks.HDFSSink.type = hdfs
+Student3_10_Agent.sinks.HDFSSink.channel = MemChannel
+Student3_10_Agent.sinks.HDFSSink.hdfs.useLocalTimeStamp = true
+Student3_10_Agent.sinks.HDFSSink.hdfs.path = /user/flume/student3_10/log/%y-%m-%d
+Student3_10_Agent.sinks.HDFSSink.hdfs.filePrefix = hdfs-st310-
+Student3_10_Agent.sinks.HDFSSink.hdfs.rollSize = 1000
+Student3_10_Agent.sinks.HDFSSink.hdfs.rollInterval = 0
+Student3_10_Agent.sinks.HDFSSink.hdfs.rollCount = 0
+Student3_10_Agent.sinks.HDFSSink.hdfs.fileType = SequenceFile
+Student3_10_Agent.sinks.HDFSSink.hdfs.codeC = gzip
+
+# Hive
+Student3_10_Agent.sinks.HiveSink.type = hive
+Student3_10_Agent.sinks.HiveSink.channel = MemChannel
+Student3_10_Agent.sinks.HiveSink.hive.metastore = thrift://89.208.221.132:9083
+Student3_10_Agent.sinks.HiveSink.hive.database = student3_10_db
+Student3_10_Agent.sinks.HiveSink.hive.table = flume2
+Student3_10_Agent.sinks.HiveSink.hive.autoCreatePartitions=true
+Student3_10_Agent.sinks.HiveSink.serializer = DELIMITED
+Student3_10_Agent.sinks.HiveSink.serializer.delimiter = '\t'
+Student3_10_Agent.sinks.HiveSink.serializer.fieldnames = data
+
+#HBase
+Student3_10_Agent.sinks.HBaseSink.type = asynchbase
+Student3_10_Agent.sinks.HBaseSink.channel = MemChannel
+Student3_10_Agent.sinks.HBaseSink.table = Student3_10
+Student3_10_Agent.sinks.HBaseSink.columnFamily = Message
+Student3_10_Agent.sinks.HBaseSink.serializer = org.apache.flume.sink.hbase.SimpleAsyncHbaseEventSerializer
+

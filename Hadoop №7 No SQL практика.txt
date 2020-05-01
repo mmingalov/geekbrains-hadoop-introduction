@@ -1,0 +1,49 @@
+0. Запустить Hbase shell
+hbase shell
+
+1. Статус 
+status 
+status 'summary'
+	
+2.	Показать таблицы
+list 
+
+3.	Создать таблицу
+create 'UsersTable', 'Person', 'Talents'
+
+4.	Посмотреть структуру таблицы
+describe  'UsersTable'
+
+5.	Сохранить данные 
+put 'UsersTable', 'User1',  'Person:FirstName', 'Andrey', 
+put 'UsersTable', 'User1',  'Person:LastName', 'Dekanovich'
+put 'UsersTable', 'User1',  'Person:Age', '39'
+
+put 'UsersTable', 'User1',  'Talents:MainSkill', 'Oracle'
+put 'UsersTable', 'User1',  'Talents:SecondarySkill', 'Oracle' 
+
+put 'UsersTable', 'User1',  'Hobbbie:Indoors', 'VodkaDrinking'
+put 'UsersTable', 'User1',  'Hobbbie:Outdoors', 'Shooting'
+
+put 'UsersTable', 'User2',  'Person:FirstName', 'Chuck'
+put 'UsersTable', 'User2',  'Person:LastName', 'Norris'
+put 'UsersTable', 'User2',  'Person:Age', '80'
+
+put 'UsersTable', 'User2',  'Talents:MainSkill', 'Roundhouse Kick'
+put 'UsersTable', 'User2',  'Talents:SecondarySkill', 'His beard contains one more fist!' 
+
+put 'UsersTable', 'User3',  'Hobbbie:Indoors', 'SmoothieDrinking'
+put 'UsersTable', 'User3',  'Hobbbie:Outdoors', 'GyroScooter покатушки'
+
+6. Добавить колонку в таблицу
+alter  'UsersTable', 'Hobbbie'
+
+7.	Посмотреть данные в таблице
+scan 'UsersTable'
+get 'UsersTable', 'User2' 
+
+8.	Удалить таблицу
+disable 'UsersTable'
+drop 'UsersTable'
+
+

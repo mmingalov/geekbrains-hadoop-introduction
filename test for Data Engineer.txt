@@ -1,0 +1,17 @@
+1.spin a kafka cluster, with one topic named "foobar" (3 partitions enough), Open to outside world on kafka port.
+
+            This means we can send data to it from our PC
+
+2. Hadoop cluster (both hdfs and yarn) + Hive (Cloudera Manager - optional but not must)        
+
+3. consume the data from Kafka to hdfs вЂ“
+
+Choose any tool you wish to automatically move the data.
+
+bonus points for writing your own kafka consumer in python/bash, can be even the simplest one, without preserving offsets
+
+4. create a hive table over the data   - see examples below
+
+5. HIVESERVER should be open to outside world on port 10000
+
+6. last but not least, please do some data   streaming  into  kafka server and after some reasonable amount of time (let's say 10-30 mins),  see it through hive.
